@@ -1,0 +1,52 @@
+.burgerIngredients {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+.burgerIngredientsList {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.totalPriceContainer {
+  display: flex;
+  gap: 40px;
+
+  margin-left: auto;
+}
+
+.totalPrice {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  margin-left: auto;
+}
+.currencyIcon {
+  width: 36px;
+  height: 36px;
+}
+
+/* Кастомный скроллбар для BurgerIngredients */
+.burgerIngredients::-webkit-scrollbar {
+  width: 4px;
+}
+
+.burgerIngredients::-webkit-scrollbar-track {
+  background: #2f2f37;
+  border-radius: 2px;
+}
+
+.burgerIngredients::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border-radius: 2px;
+}
+
+.burgerIngredients::-webkit-scrollbar-thumb:hover {
+  background: #a0a0c0;
+}
