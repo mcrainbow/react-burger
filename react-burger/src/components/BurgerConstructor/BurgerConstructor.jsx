@@ -1,50 +1,39 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import burgerConstructorStyles from './BurgerConstructor.module.css';
-import BurgerConstuctorTabMenu from './BurgerConstuctorTabMenu/BurgerConstuctorTabMenu';
+import burgerConstructorStyle from './BurgerConstructor.module.css';
 import BurgerConstructorItem from './BurgerConstructorItem/BurgerConstructorItem';
-import BurgerConstructorMenuSection from './BurgerConstructorMenuSection/BurgerConstructorMenuSection';
+import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 
 function BurgerConstructor({ data }) {
-  const buns = data.filter((item) => item.type === 'bun');
-  const main = data.filter((item) => item.type === 'main');
-  const sauce = data.filter((item) => item.type === 'sauce');
-
   return (
-    <section className={`${burgerConstructorStyles.BurgerConstructor} pt-10`}>
-      <div>
-        <h2 className={`${burgerConstructorStyles.title} text_type_main-large mb-5`}>
-          Соберите бургер
-        </h2>
-      </div>
-      <div className="mb-10">
-        <BurgerConstuctorTabMenu />
-      </div>
-      <div className={burgerConstructorStyles.list}>
-        <div>
-          <h3 className="text text_type_main-medium">Булки</h3>
-          <BurgerConstructorMenuSection>
-            {buns.map((item) => (
-              <BurgerConstructorItem key={item.id} item={item} />
-            ))}
-          </BurgerConstructorMenuSection>
+    <section className={`${burgerConstructorStyle.burgerConstructor} pt-25 pl-4 pr-4 pb-10`}>
+      <ul className={`${burgerConstructorStyle.burgerConstructorList}`}>
+        <BurgerConstructorItem item={data[0]} upperBun={true} />
+        <BurgerConstructorItem
+          item={data.find((item) => item.name === 'Соус традиционный галактический')}
+        />
+        <BurgerConstructorItem
+          item={data.find((item) => item.name === 'Мясо бессмертных моллюсков Protostomia')}
+        />
+        <BurgerConstructorItem
+          item={data.find((item) => item.name === 'Плоды Фалленианского дерева')}
+        />
+        <BurgerConstructorItem
+          item={data.find((item) => item.name === 'Плоды Фалленианского дерева')}
+        />
+        <BurgerConstructorItem
+          item={data.find((item) => item.name === 'Соус традиционный галактический')}
+        />
+        <BurgerConstructorItem item={data[0]} upperBun={false} />
+      </ul>
+      <div className={burgerConstructorStyle.totalPriceContainer}>
+        <div className={burgerConstructorStyle.totalPrice}>
+          <span className="text text_type_main-large">610</span>
+          <CurrencyIcon type="primary" className={burgerConstructorStyle.currencyIcon} />
         </div>
-        <div>
-          <h3 className="text text_type_main-medium">Соусы</h3>
-          <BurgerConstructorMenuSection>
-            {sauce.map((item) => (
-              <BurgerConstructorItem key={item.id} item={item} />
-            ))}
-          </BurgerConstructorMenuSection>
-        </div>
-        <div>
-          <h3 className="text text_type_main-medium">Начинки</h3>
-          <BurgerConstructorMenuSection>
-            {main.map((item) => (
-              <BurgerConstructorItem key={item.id} item={item} />
-            ))}
-          </BurgerConstructorMenuSection>
-        </div>
+        <Button htmlType="button" type="primary" size="large">
+          Оформить заказ
+        </Button>
       </div>
     </section>
   );

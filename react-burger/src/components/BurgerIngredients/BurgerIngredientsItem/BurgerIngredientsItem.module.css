@@ -1,49 +1,18 @@
-.container {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-}
-
 .card {
-  width: 100%;
-  background-color: #1c1c21;
   display: flex;
-  border-radius: 40px;
+  flex-direction: column;
+  gap: 4px;
   align-items: center;
-  gap: 20px;
-
-  position: relative;
-}
-
-.image {
-  width: 80px;
-  height: 40px;
 }
 
 .price {
   display: flex;
-  gap: 8px;
   align-items: center;
+  gap: 8px;
 }
 
-.currencyIcon {
-  min-width: 24px;
-  min-height: 24px;
-}
-
-.button {
-  background: none;
-  border: none;
-  padding: 0;
-  margin: 0;
-  min-width: 24px;
-  min-height: 24px;
-}
-
-.lastContainer {
-  margin-left: auto;
-  display: flex;
-  align-items: start;
-
-  gap: 20px;
+.name {
+  text-align: center;
+  min-height: 50px;
+  width: 100%;
 }
