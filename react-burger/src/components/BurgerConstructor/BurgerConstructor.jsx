@@ -9,21 +9,23 @@ function BurgerConstructor({ data }) {
     <section className={`${burgerConstructorStyle.burgerConstructor} pt-25 pl-4 pr-4 pb-10`}>
       <ul className={`${burgerConstructorStyle.burgerConstructorList}`}>
         <BurgerConstructorItem item={data[0]} upperBun={true} />
-        <BurgerConstructorItem
-          item={data.find((item) => item.name === 'Соус традиционный галактический')}
-        />
-        <BurgerConstructorItem
-          item={data.find((item) => item.name === 'Мясо бессмертных моллюсков Protostomia')}
-        />
-        <BurgerConstructorItem
-          item={data.find((item) => item.name === 'Плоды Фалленианского дерева')}
-        />
-        <BurgerConstructorItem
-          item={data.find((item) => item.name === 'Плоды Фалленианского дерева')}
-        />
-        <BurgerConstructorItem
-          item={data.find((item) => item.name === 'Соус традиционный галактический')}
-        />
+        <div className={`${burgerConstructorStyle.burgerConstructorListContainer}`}>
+          <BurgerConstructorItem
+            item={data.find((item) => item.name === 'Соус традиционный галактический')}
+          />
+          <BurgerConstructorItem
+            item={data.find((item) => item.name === 'Мясо бессмертных моллюсков Protostomia')}
+          />
+          <BurgerConstructorItem
+            item={data.find((item) => item.name === 'Плоды Фалленианского дерева')}
+          />
+          <BurgerConstructorItem
+            item={data.find((item) => item.name === 'Плоды Фалленианского дерева')}
+          />
+          <BurgerConstructorItem
+            item={data.find((item) => item.name === 'Соус традиционный галактический')}
+          />
+        </div>
         <BurgerConstructorItem item={data[0]} upperBun={false} />
       </ul>
       <div className={burgerConstructorStyle.totalPriceContainer}>
