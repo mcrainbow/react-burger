@@ -1,24 +1,23 @@
 import React from 'react';
-import logo from './logo.svg';
+import '@ya.praktikum/react-developer-burger-ui-components';
+import './reset.css';
 import './App.css';
+import AppHeader from './components/AppHeader/AppHeader';
+import MainContent from './components/MainContent/MainContent';
+import BurgerIngredients from './components/BurgerIngredients/BurgerIngredients';
+import BurgerConstructor from './components/BurgerConstructor/BurgerConstructor';
+import data from './data/data';
+
+// data is now imported from ./data/data
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <AppHeader />
+      <MainContent>
+        <BurgerIngredients data={data} />
+        <BurgerConstructor data={data} />
+      </MainContent>
     </div>
   );
 }

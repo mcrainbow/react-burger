@@ -1,0 +1,31 @@
+.BurgerIngredients {
+  height: 100%;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Кастомный скроллбар для BurgerIngredients */
+.BurgerIngredients::-webkit-scrollbar {
+  width: 4px;
+}
+
+.BurgerIngredients::-webkit-scrollbar-track {
+  background: #2f2f37;
+  border-radius: 2px;
+}
+
+.BurgerIngredients::-webkit-scrollbar-thumb {
+  background: #8585ad;
+  border-radius: 2px;
+}
+
+.BurgerIngredients::-webkit-scrollbar-thumb:hover {
+  background: #a0a0c0;
+}
