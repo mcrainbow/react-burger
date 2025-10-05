@@ -3,6 +3,8 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+
+  min-width: 600px;
 }
 
 .list {

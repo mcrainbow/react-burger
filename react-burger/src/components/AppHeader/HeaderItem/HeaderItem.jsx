@@ -17,6 +17,10 @@ function HeaderItem({ icon, text, textType }) {
   );
 }
 
-HeaderItem.propTypes = {};
+HeaderItem.propTypes = {
+  icon: PropTypes.node.isRequired,
+  text: PropTypes.string.isRequired,
+  textType: PropTypes.oneOf(['active', 'inactive']),
+};
 
 export default HeaderItem;

@@ -1,0 +1,46 @@
+.modalOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modalContent {
+  background: #1c1c21;
+  border-radius: 8px;
+  min-width: 720px;
+  min-height: 540px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13);
+  position: relative;
+  outline: none; /* для accessibility, чтобы можно было сфокусироваться */
+  transition: box-shadow 0.2s;
+}
+
+.modalClose {
+  position: absolute;
+  top: 60px;
+  right: 40px;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+  padding: 0 8px;
+  transition: color 0.2s;
+}
+
+.modalClose:hover,
+.modalClose:focus {
+  color: #e53935;
+}
+
+@media (max-width: 500px) {
+  .modalContent {
+    min-width: 90vw;
+    padding: 1rem;
+  }
+}
