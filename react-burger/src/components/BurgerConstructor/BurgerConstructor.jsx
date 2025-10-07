@@ -1,36 +1,72 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import BurgerConstructorItem from './BurgerConstructorItem/BurgerConstructorItem';
-import { CurrencyIcon, Button } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientType } from '../../utils/types';
+import {
+  CurrencyIcon,
+  Button,
+  ConstructorElement,
+} from '@ya.praktikum/react-developer-burger-ui-components';
 import Modal from '../Modal/Modal';
-import ModalOrderDetails from '../Modal/ModalOrderDetails/ModalOrderDetails';
+import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 
 function BurgerConstructor({ data }) {
+  const [bun, setBun] = useState(data.find((item) => item.name === 'Краторная булка N-200i'));
+  const [ingredients, setIngredients] = useState(() => [
+    {
+      ...data.find((item) => item.name === 'Соус традиционный галактический'),
+      id: crypto.randomUUID(),
+    },
+    {
+      ...data.find((item) => item.name === 'Мясо бессмертных моллюсков Protostomia'),
+      id: crypto.randomUUID(),
+    },
+    {
+      ...data.find((item) => item.name === 'Плоды Фалленианского дерева'),
+      id: crypto.randomUUID(),
+    },
+    {
+      ...data.find((item) => item.name === 'Плоды Фалленианского дерева'),
+      id: crypto.randomUUID(),
+    },
+    {
+      ...data.find((item) => item.name === 'Соус традиционный галактический'),
+      id: crypto.randomUUID(),
+    },
+  ]);
+
   const [modalIsOpen, setModalIsOpen] = useState(false);
+
   return (
     <>
       <section className={`${burgerConstructorStyle.burgerConstructor} pt-25 pl-4 pr-4 pb-10`}>
         <ul className={`${burgerConstructorStyle.burgerConstructorList}`}>
-          <BurgerConstructorItem item={data[0]} upperBun={true} />
+          <ConstructorElement
+            type="top"
+            isLocked={true}
+            text={`${bun.name} (верх)`}
+            price={200}
+            thumbnail={bun.image}
+          />
           <div className={`${burgerConstructorStyle.burgerConstructorListContainer}`}>
-            <BurgerConstructorItem
-              item={data.find((item) => item.name === 'Соус традиционный галактический')}
-            />
-            <BurgerConstructorItem
-              item={data.find((item) => item.name === 'Мясо бессмертных моллюсков Protostomia')}
-            />
-            <BurgerConstructorItem
-              item={data.find((item) => item.name === 'Плоды Фалленианского дерева')}
-            />
-            <BurgerConstructorItem
-              item={data.find((item) => item.name === 'Плоды Фалленианского дерева')}
-            />
-            <BurgerConstructorItem
-              item={data.find((item) => item.name === 'Соус традиционный галактический')}
-            />
+            {ingredients.map((ing) => (
+              <ConstructorElement
+                type="undefind"
+                isLocked={false}
+                text={ing.name}
+                price={200}
+                thumbnail={ing.image}
+                key={ing.id} // Я создал уникальный id для всех элементов массива, чтобы при одинаковых ингредиентах key не повторялся. Не уверен что так можно, если что исправлю
+              />
+            ))}
           </div>
-          <BurgerConstructorItem item={data[0]} upperBun={false} />
+          <ConstructorElement
+            type="bottom"
+            isLocked={true}
+            text={`${bun.name} (низ)`}
+            price={200}
+            thumbnail={bun.image}
+          />
         </ul>
         <div className={burgerConstructorStyle.totalPriceContainer}>
           <div className={burgerConstructorStyle.totalPrice}>
@@ -48,34 +84,17 @@ function BurgerConstructor({ data }) {
         </div>
       </section>
 
-      <Modal
-        isOpen={modalIsOpen}
-        onClose={() => setModalIsOpen(false)}
-        modalClassName="pt-30 pb-30"
-      >
-        <ModalOrderDetails />
-      </Modal>
+      {modalIsOpen && (
+        <Modal onClose={() => setModalIsOpen(false)} modalClassName="pt-30 pb-30">
+          <OrderDetails />
+        </Modal>
+      )}
     </>
   );
 }
 
 BurgerConstructor.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      _id: PropTypes.string.isRequired,
-      name: PropTypes.string.isRequired,
-      type: PropTypes.string.isRequired,
-      proteins: PropTypes.number.isRequired,
-      fat: PropTypes.number.isRequired,
-      carbohydrates: PropTypes.number.isRequired,
-      calories: PropTypes.number.isRequired,
-      price: PropTypes.number.isRequired,
-      image: PropTypes.string.isRequired,
-      image_mobile: PropTypes.string,
-      image_large: PropTypes.string,
-      __v: PropTypes.number,
-    })
-  ).isRequired,
+  data: PropTypes.arrayOf(IngredientType).isRequired,
 };
 
 export default BurgerConstructor;

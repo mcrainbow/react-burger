@@ -23,8 +23,6 @@ function App() {
 
         const jsonData = await response.json();
 
-        console.log(jsonData.data);
-
         setData(jsonData.data);
       } catch (err) {
         setError(err instanceof Error ? err.message : 'An error occurred');
