@@ -3,6 +3,8 @@
   flex-direction: column;
   gap: 4px;
   align-items: center;
+
+  cursor: pointer;
 }
 
 .price {

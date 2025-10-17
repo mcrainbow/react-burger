@@ -1,20 +1,26 @@
-import React from 'react';
-import burgerIngredientsItemStyle from './BurgerIngredientsItem.module.css';
+import burgerIngredientsItemStyles from './BurgerIngredientsItem.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { IngredientType } from '../../../utils/types';
 
-export default function BurgerIngredientsItem({ item }) {
+function BurgerIngredientsItem({ item, onClick }) {
   return (
-    <li className={`${burgerIngredientsItemStyle.card}`}>
-      <div className="pl-4 pr-4">
+    <div className={burgerIngredientsItemStyles.card} onClick={onClick}>
+      <div className={burgerIngredientsItemStyles.image}>
         <img src={item.image} alt={item.name} />
       </div>
-      <div className={burgerIngredientsItemStyle.price}>
-        <p className="text text_type_main-medium">{item.price}</p>
+      <div className={burgerIngredientsItemStyles.price}>
+        <span className="text text_type_main-default">{item.price}</span>
         <CurrencyIcon type="primary" />
       </div>
-      <div className={burgerIngredientsItemStyle.name}>
+      <div className={burgerIngredientsItemStyles.name}>
         <p className="text text_type_main-default">{item.name}</p>
       </div>
-    </li>
+    </div>
   );
 }
+
+BurgerIngredientsItem.propTypes = {
+  item: IngredientType.isRequired,
+};
+
+export default BurgerIngredientsItem;
