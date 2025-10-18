@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import appHeaderStyles from './AppHeader.module.css';
 import {
@@ -33,7 +32,5 @@ function AppHeader(props) {
     </header>
   );
 }
-
-AppHeader.propTypes = {};
 
 export default AppHeader;

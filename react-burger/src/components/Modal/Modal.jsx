@@ -17,7 +17,6 @@ function Modal({ onClose, children, modalClassName = '' }) {
     if (e.target === e.currentTarget) onClose();
   };
 
-  // Сам портал, используем modal-root
   return ReactDOM.createPortal(
     <div className={modalStyles.modalOverlay} onClick={handleOverlayClick}>
       <div className={`${modalStyles.modalContent} pt-15 pb-15 pr-10 pl-10 ${modalClassName}`}>

@@ -1,10 +1,25 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import burgerIngredientsItemStyles from './BurgerIngredientsItem.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useDrag } from 'react-dnd';
 import { IngredientType } from '../../../utils/types';
 
 function BurgerIngredientsItem({ item, onClick }) {
+  const [{ isDragging }, dragRef] = useDrag({
+    type: 'ingredient',
+    item: item,
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  });
   return (
-    <div className={burgerIngredientsItemStyles.card} onClick={onClick}>
+    <div
+      className={burgerIngredientsItemStyles.card}
+      onClick={onClick}
+      ref={dragRef}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
+    >
       <div className={burgerIngredientsItemStyles.image}>
         <img src={item.image} alt={item.name} />
       </div>
@@ -21,6 +36,7 @@ function BurgerIngredientsItem({ item, onClick }) {
 
 BurgerIngredientsItem.propTypes = {
   item: IngredientType.isRequired,
+  onClick: PropTypes.func,
 };
 
 export default BurgerIngredientsItem;
