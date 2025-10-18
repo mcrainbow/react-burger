@@ -1,6 +1,9 @@
+import React from 'react';
+import PropTypes from 'prop-types';
 import burgerIngredientsItemStyles from './BurgerIngredientsItem.module.css';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag } from 'react-dnd';
+import { IngredientType } from '../../../utils/types';
 
 function BurgerIngredientsItem({ item, onClick }) {
   const [{ isDragging }, dragRef] = useDrag({
@@ -30,4 +33,10 @@ function BurgerIngredientsItem({ item, onClick }) {
     </div>
   );
 }
+
+BurgerIngredientsItem.propTypes = {
+  item: IngredientType.isRequired,
+  onClick: PropTypes.func,
+};
+
 export default BurgerIngredientsItem;

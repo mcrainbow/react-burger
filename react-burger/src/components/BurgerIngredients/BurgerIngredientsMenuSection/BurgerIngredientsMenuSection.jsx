@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import burgerIngredientsMenuSectionStyle from './BurgerIngredientsMenuSection.module.css';
 
 export default function BurgerIngredientsMenuSection({ children }) {
@@ -8,3 +9,7 @@ export default function BurgerIngredientsMenuSection({ children }) {
     </ul>
   );
 }
+
+BurgerIngredientsMenuSection.propTypes = {
+  children: PropTypes.node.isRequired,
+};

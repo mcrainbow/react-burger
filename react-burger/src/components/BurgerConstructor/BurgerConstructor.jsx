@@ -1,5 +1,4 @@
 import React, { useState, useMemo } from 'react';
-import PropTypes from 'prop-types';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
 import { IngredientType } from '../../utils/types';
 import {
@@ -121,6 +120,5 @@ function BurgerConstructor() {
   );
 }
 
-// PropTypes не нужны, так как компонент не принимает пропсы
 
 export default BurgerConstructor;
