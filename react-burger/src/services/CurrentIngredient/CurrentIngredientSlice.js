@@ -1,0 +1,18 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+const initialState = {
+  currentIngredient: {},
+};
+
+const currentIngredientSlice = createSlice({
+  name: 'currentIngredient',
+  initialState,
+  reducers: {
+    setCurrentIngredient: (state, action) => {
+      state.currentIngredient = action.payload;
+    },
+  },
+});
+
+export const { setCurrentIngredient } = currentIngredientSlice.actions;
+export default currentIngredientSlice.reducer;
