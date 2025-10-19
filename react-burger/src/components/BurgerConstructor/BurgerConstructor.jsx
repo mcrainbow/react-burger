@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import React, { useState, useMemo, useCallback } from 'react';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
 import { IngredientType } from '../../utils/types';
 import {
@@ -11,7 +11,7 @@ import OrderDetails from '../Modal/OrderDetails/OrderDetails';
 import { useSelector, useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import {
-  setSelectedIngredients,
+  addIngredient,
   dragSelectedIngredients,
 } from '../../services/SelectedIngredients/SelectedIngredientSlice';
 import { createOrder, clearOrder } from '../../services/Order/OrderSlice';
@@ -27,7 +27,7 @@ function BurgerConstructor() {
     accept: 'ingredient',
     drop: (item) => {
       if (item.type !== 'reorder') {
-        dispatch(setSelectedIngredients(item));
+        dispatch(addIngredient(item));
       }
     },
   });
@@ -59,8 +59,33 @@ function BurgerConstructor() {
   };
 
   const totalPrice = useMemo(() => {
-    return bun?.price * 2 + ingredients?.reduce((acc, ingredient) => acc + ingredient?.price, 0);
+    const bunPrice = bun?.price || 0;
+    const ingredientsPrice =
+      ingredients?.reduce((acc, ingredient) => acc + (ingredient?.price || 0), 0) || 0;
+    return bunPrice * 2 + ingredientsPrice;
   }, [bun, ingredients]);
+
+  const getBunElement = useCallback(
+    (position) => {
+      if (!bun) {
+        return null;
+      }
+
+      return (
+        <ConstructorElement
+          type={bun.type}
+          isLocked={true}
+          text={bun.name + ` (${position})`}
+          price={bun.price}
+          thumbnail={bun.image}
+        />
+      );
+    },
+    [bun]
+  );
+
+  const topBun = useMemo(() => getBunElement('верх'), [getBunElement]);
+  const bottomBun = useMemo(() => getBunElement('низ'), [getBunElement]);
 
   return (
     <>
@@ -69,13 +94,7 @@ function BurgerConstructor() {
         ref={dropRef}
       >
         <ul className={`${burgerConstructorStyle.burgerConstructorList}`}>
-          <ConstructorElement
-            type={bun?.type}
-            isLocked={true}
-            text={bun?.name + ' (верх)'}
-            price={bun?.price}
-            thumbnail={bun?.image}
-          />
+          {bun ? topBun : <div>Выберите булку</div>}
           <div className={`${burgerConstructorStyle.burgerConstructorListContainer}`}>
             {ingredients?.map((ingredient, index) => (
               <BurgerConstructorItem
@@ -86,17 +105,12 @@ function BurgerConstructor() {
               />
             ))}
           </div>
-          <ConstructorElement
-            type={bun?.type}
-            isLocked={true}
-            text={bun?.name + ' (низ)'}
-            price={bun?.price}
-            thumbnail={bun?.image}
-          />
+
+          {bottomBun}
         </ul>
         <div className={burgerConstructorStyle.totalPriceContainer}>
           <div className={burgerConstructorStyle.totalPrice}>
-            <span className="text text_type_main-large">{totalPrice}</span>
+            <span className="text text_type_main-large">{totalPrice || 0}</span>
             <CurrencyIcon type="primary" className={burgerConstructorStyle.currencyIcon} />
           </div>
           <Button
@@ -119,6 +133,5 @@ function BurgerConstructor() {
     </>
   );
 }
-
 
 export default BurgerConstructor;
