@@ -57,4 +57,19 @@ export const {
   dragSelectedIngredients,
   resetSelectedIngredients,
 } = selectedIngredientSlice.actions;
+
+export const selectIngredientCounts = (state) => {
+  const counts = {};
+
+  if (state.selectedIngredients.bun) {
+    counts[state.selectedIngredients.bun._id] = 1;
+  }
+
+  state.selectedIngredients.ingredients.forEach((ingredient) => {
+    counts[ingredient._id] = (counts[ingredient._id] || 0) + 1;
+  });
+
+  return counts;
+};
+
 export default selectedIngredientSlice.reducer;

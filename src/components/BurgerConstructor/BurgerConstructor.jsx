@@ -1,6 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
 import burgerConstructorStyle from './BurgerConstructor.module.css';
-import { IngredientType } from '../../utils/types';
 import {
   CurrencyIcon,
   Button,
