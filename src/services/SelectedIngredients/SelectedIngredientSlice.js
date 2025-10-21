@@ -1,5 +1,6 @@
 import { createSlice, createAction } from '@reduxjs/toolkit';
 import { v4 as uuidv4 } from 'uuid';
+import { createSelector } from '@reduxjs/toolkit';
 
 const initialState = {
   bun: null,
@@ -58,18 +59,21 @@ export const {
   resetSelectedIngredients,
 } = selectedIngredientSlice.actions;
 
-export const selectIngredientCounts = (state) => {
-  const counts = {};
+export const selectIngredientCounts = createSelector(
+  [(state) => state.selectedIngredients.bun, (state) => state.selectedIngredients.ingredients],
+  (bun, ingredients) => {
+    const counts = {};
 
-  if (state.selectedIngredients.bun) {
-    counts[state.selectedIngredients.bun._id] = 1;
+    if (bun) {
+      counts[bun._id] = 1;
+    }
+
+    ingredients.forEach((ingredient) => {
+      counts[ingredient._id] = (counts[ingredient._id] || 0) + 1;
+    });
+
+    return counts;
   }
-
-  state.selectedIngredients.ingredients.forEach((ingredient) => {
-    counts[ingredient._id] = (counts[ingredient._id] || 0) + 1;
-  });
-
-  return counts;
-};
+);
 
 export default selectedIngredientSlice.reducer;

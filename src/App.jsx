@@ -15,8 +15,8 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchIngredients()).unwrap();
-  }, [dispatch]);
+    dispatch(fetchIngredients());
+  }, []);
 
   return (
     <div className="App">

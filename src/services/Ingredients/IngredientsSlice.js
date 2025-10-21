@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const fetchIngredients = createAsyncThunk('ingredients/fetchIngredients', async () => {
-  const ingredients = await request(`${BASE_URL}ingredients`);
+  const ingredients = await request(`${BASE_URL}/ingredients`);
 
   return ingredients;
 });
@@ -26,7 +26,6 @@ const ingredientsSlice = createSlice({
       })
       .addCase(fetchIngredients.fulfilled, (state, action) => {
         state.isLoading = false;
-        console.log(action.payload);
         state.ingredients = action.payload.data;
         state.error = null;
       })
