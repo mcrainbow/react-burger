@@ -15,7 +15,7 @@ function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchIngredients()).unwrap();
+    dispatch(fetchIngredients());
   }, [dispatch]);
 
   return (
