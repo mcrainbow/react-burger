@@ -9,7 +9,7 @@ const initialState = {
 };
 
 export const createOrder = createAsyncThunk('order/createOrder', async (ingredients) => {
-  const order = await request(`${BASE_URL}orders`, {
+  const order = await request(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

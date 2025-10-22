@@ -10,13 +10,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchIngredients } from './services/Ingredients/IngredientsSlice';
 
 function App() {
-  const { isLoading } = useSelector((state) => state.ingredients);
+  const { ingredients: data, isLoading } = useSelector((state) => state.ingredients);
 
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(fetchIngredients());
-  }, []);
+    dispatch(fetchIngredients()).unwrap();
+  }, [dispatch]);
 
   return (
     <div className="App">
@@ -26,7 +26,7 @@ function App() {
           <p>Loading...</p>
         ) : (
           <>
-            <BurgerIngredients />
+            <BurgerIngredients data={data} />
             <BurgerConstructor />
           </>
         )}
