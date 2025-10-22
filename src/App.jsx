@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchIngredients } from './services/Ingredients/IngredientsSlice';
 
 function App() {
-  const { ingredients: data, isLoading } = useSelector((state) => state.ingredients);
+  const { isLoading } = useSelector((state) => state.ingredients);
 
   const dispatch = useDispatch();
 
@@ -26,7 +26,7 @@ function App() {
           <p>Loading...</p>
         ) : (
           <>
-            <BurgerIngredients data={data} />
+            <BurgerIngredients />
             <BurgerConstructor />
           </>
         )}
