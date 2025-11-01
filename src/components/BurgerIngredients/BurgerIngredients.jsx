@@ -9,16 +9,19 @@ import Modal from '../Modal/Modal';
 import IngredientDetails from '../Modal/IngredientDetails/IngredientDetails';
 import { useDispatch, useSelector } from 'react-redux';
 import { setCurrentIngredient } from '../../services/CurrentIngredient/CurrentIngredientSlice';
+import { useNavigate, useLocation } from 'react-router';
 
 function BurgerIngredients() {
   const [currentTab, setCurrentTab] = useState('one');
   const [modalOpen, setModalOpen] = useState(false);
   const ingredientsContainerRef = useRef(null);
   const observerRef = useRef(null);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const currentIngredient = useSelector((state) => state.currentIngredient.currentIngredient);
   const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const location = useLocation();
 
   const sections = [
     { id: 'buns-section', title: 'Булки', data: ingredients.filter((item) => item.type === 'bun') },
@@ -97,6 +100,16 @@ function BurgerIngredients() {
     };
   }, [currentTab]);
 
+  const modalData = useCallback(
+    (ingredient) => () => {
+      navigate(`/ingredients/${ingredient._id}`, {
+        state: { ingredient, backgroundLocation: location },
+      });
+      dispatch(setCurrentIngredient(ingredient));
+    },
+    [dispatch, navigate]
+  );
+
   return (
     <>
       <section className={`${burgerIngredientsStyles.BurgerIngredients} pt-10`}>
@@ -116,11 +129,7 @@ function BurgerIngredients() {
               </h3>
               <BurgerIngredientsMenuSection>
                 {section.data.map((item) => (
-                  <BurgerIngredientsItem
-                    key={item._id}
-                    item={item}
-                    onClick={() => handleModalOpen(item)}
-                  />
+                  <BurgerIngredientsItem key={item._id} item={item} onClick={modalData(item)} />
                 ))}
               </BurgerIngredientsMenuSection>
             </div>

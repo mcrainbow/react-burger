@@ -1,0 +1,38 @@
+.container {
+  display: flex;
+  gap: 60px;
+
+  margin: 0 auto;
+  max-width: 1230px;
+}
+
+.leftSide {
+  width: 320px;
+}
+
+.navLinksList {
+  list-style: none;
+  padding: 0;
+}
+
+.navLinkItem {
+  padding: 12px 0px;
+  margin: 0;
+}
+
+.navLink {
+  text-decoration: none;
+  color: #8585ad;
+}
+
+.active {
+  color: #f2f2f3;
+}
+
+.logoutButton {
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: #8585ad;
+  padding: 0;
+}

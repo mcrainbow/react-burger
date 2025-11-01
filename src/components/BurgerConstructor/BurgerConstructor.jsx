@@ -16,12 +16,17 @@ import {
 } from '../../services/SelectedIngredients/SelectedIngredientSlice';
 import { createOrder } from '../../services/Order/OrderSlice';
 import BurgerConstructorItem from './BurgerConstructorItem/BurgerConstructorItem';
+import { isUserAuthenticated } from '../../utils/functions';
+import { useNavigate } from 'react-router';
+import { PATHS } from '../../utils/constants';
 
 function BurgerConstructor() {
   const [modalIsOpen, setModalIsOpen] = useState(false);
   const { bun, ingredients } = useSelector((state) => state.selectedIngredients);
   const { order, isLoading, error } = useSelector((state) => state.order);
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const navigate = useNavigate();
 
   const [, dropRef] = useDrop({
     accept: 'ingredient',
@@ -39,6 +44,12 @@ function BurgerConstructor() {
   const handleCreateOrder = async () => {
     if (!bun || ingredients.length === 0) {
       alert('Добавьте булку и ингредиенты для создания заказа');
+      return;
+    }
+
+    if (!isUserAuthenticated(user)) {
+      alert('Для оформления заказа необходимо авторизоваться');
+      navigate(PATHS.LOGIN);
       return;
     }
 

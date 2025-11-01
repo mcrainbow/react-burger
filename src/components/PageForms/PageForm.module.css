@@ -1,0 +1,22 @@
+.form {
+  margin-top: 180px;
+  margin: 180px auto 0;
+  width: fit-content;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.link {
+  color: #4c4cff;
+  text-decoration: none;
+}

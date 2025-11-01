@@ -1,9 +1,16 @@
-import React from 'react';
-import PropTypes from 'prop-types';
 import ingredientDetailsStyles from './IngredientDetails.module.css';
-import { IngredientType } from '../../../utils/types';
+import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
 
-export default function IngredientDetails({ item }) {
+export default function IngredientDetails() {
+  const ingredients = useSelector((state) => state.ingredients.ingredients);
+  const id = useParams().id;
+  const item = ingredients.find((item) => item._id === id);
+
+  if (!item) {
+    return <div className="text text_type_main-large">Ингредиент не найден</div>;
+  }
+
   return (
     <div>
       <h2 className="text text_type_main-large">Детали ингредиента</h2>
@@ -34,7 +41,3 @@ export default function IngredientDetails({ item }) {
     </div>
   );
 }
-
-IngredientDetails.propTypes = {
-  item: IngredientType.isRequired,
-};
