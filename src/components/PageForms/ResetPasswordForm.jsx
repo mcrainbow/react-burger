@@ -5,7 +5,6 @@ import { Link } from 'react-router';
 import { PATHS } from '../../utils/constants';
 import style from './PageForm.module.css';
 import { request } from '../../utils/functions';
-import PropTypes from 'prop-types';
 
 export default function ResetPasswordForm() {
   const [formData, setFormData] = useState({
@@ -19,14 +18,15 @@ export default function ResetPasswordForm() {
     setFormData({ ...formData, [target.name]: target.value });
   }
 
-  const handleClick = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     await request(' https://norma.education-services.ru/api/password-reset/reset', {
       method: 'POST',
     });
   };
 
   return (
-    <div className={style.form}>
+    <form onSubmit={handleSubmit} className={style.form}>
       <h2>Восстановление пароля</h2>
       <Input
         placeholder="Пароль"
@@ -44,13 +44,7 @@ export default function ResetPasswordForm() {
         name="code"
         type="text"
       />
-      <Button
-        htmlType="button"
-        type="primary"
-        size="large"
-        extraClass="mb-20"
-        onClick={handleClick}
-      >
+      <Button htmlType="button" type="primary" size="large" extraClass="mb-20">
         Сохранить
       </Button>
       <div className={style.footer}>
@@ -61,6 +55,6 @@ export default function ResetPasswordForm() {
           </Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 }

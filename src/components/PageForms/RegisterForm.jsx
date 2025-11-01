@@ -4,9 +4,13 @@ import { Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link } from 'react-router';
 import { PATHS } from '../../utils/constants';
 import style from './PageForm.module.css';
-import { request } from '../../utils/functions';
+import { useDispatch } from 'react-redux';
+import { createUserProfileAction } from '../../services/Auth/AuthActions';
+import { useNavigate } from 'react-router';
 
 export default function RegisterForm() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -19,24 +23,19 @@ export default function RegisterForm() {
     setFormData({ ...formData, [target.name]: target.value });
   }
 
-  async function handleClick() {
-    const data = await request('https://norma.education-services.ru/api/auth/register', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        email: formData.email,
-        password: formData.password,
-        name: formData.name,
-      }),
-    });
-    if (!data) return;
-    console.log(data);
-  }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    dispatch(createUserProfileAction(formData))
+      .unwrap()
+      .then((res) => {
+        if (res.success) {
+          navigate(PATHS.LOGIN, { replace: true });
+        }
+      });
+  };
 
   return (
-    <div className={style.form}>
+    <form onSubmit={handleSubmit} className={style.form}>
       <h2>Регистрация</h2>
       <Input
         placeholder="Имя"
@@ -61,13 +60,7 @@ export default function RegisterForm() {
         icon={!showPassword ? 'ShowIcon' : 'HideIcon'}
         onIconClick={() => setShowPassword(!showPassword)}
       />
-      <Button
-        htmlType="button"
-        type="primary"
-        size="large"
-        extraClass="mb-20"
-        onClick={handleClick}
-      >
+      <Button htmlType="submit" type="primary" size="large" extraClass="mb-20">
         Зарегистрироваться
       </Button>
       <div className={style.footer}>
@@ -78,6 +71,6 @@ export default function RegisterForm() {
           </Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 }

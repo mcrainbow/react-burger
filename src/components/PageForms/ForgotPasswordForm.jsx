@@ -16,7 +16,8 @@ export default function ForgotPasswordForm() {
     setFormData({ ...formData, [target.name]: target.value });
   }
 
-  const handleClick = async () => {
+  const handleSubmit = async (e) => {
+    e.preventDefault();
     const data = await request('https://norma.education-services.ru/api/password-reset', {
       method: 'POST',
     });
@@ -26,7 +27,7 @@ export default function ForgotPasswordForm() {
     navigate(PATHS.RESET, { state: { email: formData.email } });
   };
   return (
-    <div className={style.form}>
+    <form onSubmit={handleSubmit} className={style.form}>
       <h2>Восстановление пароля</h2>
 
       <Input
@@ -37,13 +38,7 @@ export default function ForgotPasswordForm() {
         type="email"
       />
 
-      <Button
-        htmlType="button"
-        type="primary"
-        size="large"
-        extraClass="mb-20"
-        onClick={handleClick}
-      >
+      <Button htmlType="submit" type="primary" size="large" extraClass="mb-20">
         Восстановить
       </Button>
       <div className={style.footer}>
@@ -54,6 +49,6 @@ export default function ForgotPasswordForm() {
           </Link>
         </p>
       </div>
-    </div>
+    </form>
   );
 }

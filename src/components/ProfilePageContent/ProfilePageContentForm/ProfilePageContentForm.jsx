@@ -45,7 +45,7 @@ export default function ProfilePageContentForm() {
   }
   return (
     <div>
-      <form className={profilePageContentFormStyles.form}>
+      <form onSubmit={handleSave} className={profilePageContentFormStyles.form}>
         <Input
           type="text"
           placeholder="Имя"
@@ -82,13 +82,7 @@ export default function ProfilePageContentForm() {
           >
             Отменить
           </Button>
-          <Button
-            htmlType="submit"
-            type="primary"
-            size="medium"
-            onClick={(e) => handleSave(e)}
-            disabled={!isFormChanged}
-          >
+          <Button htmlType="submit" type="primary" size="medium" disabled={!isFormChanged}>
             Сохранить
           </Button>
         </div>
