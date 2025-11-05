@@ -1,4 +1,3 @@
-import React, { useEffect } from 'react';
 import { Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import appHeaderStyles from './AppHeader.module.css';
 import {
@@ -7,10 +6,11 @@ import {
   ProfileIcon,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import HeaderItem from './HeaderItem/HeaderItem';
-import { Link, NavLink } from 'react-router';
+import { Link, NavLink, useLocation } from 'react-router';
 import { PATHS } from '../../utils/constants';
 
 function AppHeader() {
+  const location = useLocation();
   return (
     <header className={appHeaderStyles.header + ' ml-10 mr-10 mt-10 pt-4 pb-4'}>
       <div className={appHeaderStyles.headerContainer}>
