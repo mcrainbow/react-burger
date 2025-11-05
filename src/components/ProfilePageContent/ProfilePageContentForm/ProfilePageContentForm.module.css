@@ -1,0 +1,14 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.buttonsContainer {
+  display: flex;
+  gap: 16px;
+  justify-content: flex-end;
+}
+.cancelButton {
+  background-color: transparent;
+  color: #8585ad;
+}

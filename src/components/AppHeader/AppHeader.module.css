@@ -28,3 +28,7 @@
 .headerLogo {
   justify-self: center;
 }
+
+a {
+  text-decoration: none;
+}
